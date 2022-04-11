@@ -6,8 +6,8 @@ import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
-    <div className="flex items-center">
-      <div className="container m-auto bg-red-100">
+    <div className="bg-neutral-900 min-h-screen flex items-center">
+      <div className="px-10 container m-auto py-4">
       <PostProvider>
         <Routes>
           <Route path='/' element={ <HomePage/> } />

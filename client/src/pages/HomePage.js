@@ -8,29 +8,40 @@ export function HomePage() {
   const { posts } = usePostsContext()
   // console.log(setPosts)
 
-  // cuando no hay publicaciones
-  if(posts.length === 0) return (
-    <div className="flex flex-col justify-center items-center">
-      <VscEmptyWindow className='w-30 h-30 text-white'/>
-      <h1 className='text-white text-2xl'> Aún no hay publicaciones </h1>
-    </div>
-  )
+  const renderPost = () => {
+    if (posts.length === 0)   // cuando no hay publicaciones
+      return (
+        <div className="flex flex-col justify-center items-center">
+          <VscEmptyWindow className="w-48 h-48 text-white" />
+          <h1 className="text-white text-2xl">There are no posts</h1>
+        </div>
+      );
 
-  return (
-    <div className='bg-gray-800 text-white'>
-      <h1> HomePage</h1>
-      <Link to='/new'>Create a new post</Link><hr />
-
-      <div className="grid grid-cols-3 gap-2">
-        {posts.map(post => (
-          <PostCard post={post} key={post._id}/>
-          // <div key={post._id}>
-          //   {post.title}
-          // </div>
+    return (
+      <div className="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {posts.map((post) => (
+          <PostCard key={post._id} post={post} />
         ))}
       </div>
-      
-    </div>
-  )
+    );
+  };
+
+  return (
+    <main>
+      <header className="flex justify-between items-center my-4">
+        <h1 className="text-2xl text-gray-300 font-bold">
+          Posts ({posts.length})
+        </h1>
+        <Link
+          to="/new"
+          className="bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-500"
+        >
+          Create Post
+        </Link>
+      </header>
+
+      {renderPost()}
+    </main>
+  );
 }
 

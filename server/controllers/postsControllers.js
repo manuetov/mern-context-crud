@@ -51,7 +51,7 @@ export const updatePost = async (req, res) => {
             { new: true }) // news: true => devuelve el dato actualizado 
         // metodo para buscar un id y devuelve los datos asociados (req.body)
         console.log(updatePost) 
-        return res.send('update').json(updatePost)
+        return res.json(updatePost)
     } catch (error){
         console.error(error);
         return res.status(500).json({ message: error.message })

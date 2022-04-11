@@ -1,16 +1,19 @@
-// este archivo configura express
-import express from 'express'
+// app.js se configura express
+import express from "express";
+import morgan from "morgan";
 import fileUpload from "express-fileupload";
-import postRoutes from './routes/posts.routes.js' //importa la ruta 
-import morgan from 'morgan'
+import path from 'path'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const app = express () // creamos express
+import postRoutes from "./routes/posts.routes.js"; //archivo de rutas frontent
 
-app.use(morgan('dev'))
+const app = express(); // creamos express
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// middlewares
-app.use(express.json()) 
-// para que express pueda entender los json
+app.use(morgan("dev"));
+app.use(express.json()); // para que express pueda entender los json
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
     fileUpload({
@@ -18,6 +21,8 @@ app.use(
       useTempFiles: true,
     })
   );
+
+  app.use(express.static(path.join(__dirname, '../client/build')));
 
 // la imagen subida no la mantenga en memoria sino que la guarda
 // en un archivo
@@ -29,7 +34,7 @@ app.use(
 // de lo contrario no funciona.
 
 // rutas
-app.use('/', postRoutes) // añadimos la ruta /api del frontent 
+app.use('/api', postRoutes) // añadimos la ruta /api del frontent 
 // con posts.routes.js aqui en el backend
 
 export default app  // exportamos
