@@ -2,14 +2,10 @@
 import express from "express";
 import morgan from "morgan";
 import fileUpload from "express-fileupload";
-import path from 'path'
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 
 import postRoutes from "./routes/posts.routes.js"; //archivo de rutas frontent
 
 const app = express(); // creamos express
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(morgan("dev"));
 app.use(express.json()); // para que express pueda entender los json
@@ -21,8 +17,6 @@ app.use(
       useTempFiles: true,
     })
   );
-
-  app.use(express.static(path.join(__dirname, '../client/build')));
 
 // la imagen subida no la mantenga en memoria sino que la guarda
 // en un archivo

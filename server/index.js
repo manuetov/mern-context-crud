@@ -5,5 +5,5 @@ import  app  from './app.js'
 
 connectDB() // ejecuta la función de db.js
 
-app.listen(PORT) //variable de entorno
+app.listen(PORT) //el servidor se queda escuchando el puerto variable de entorno
 console.log ('server running on port', PORT)
